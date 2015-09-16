@@ -1,12 +1,13 @@
 'use strict';
 
-let fs = require('fs'),    
+let fs = require('fs'),   
+    path = require('path'),
     jade = require('jade'),
     stylus = require('stylus'), 
     babel = require('babel');
 
 module.exports = {
-    logs: __dirname+'/../main.log',
+    logs: path.join(__dirname, 'main.log'),
     watch: function (engine, file, render) {
         engine.call(this, file, render);
         fs.watchFile(file, () => engine.call(this, file, render));
