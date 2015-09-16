@@ -25,13 +25,13 @@ module.exports = {
     jade: function (jadeFile, html) {
         fs.writeFile(html, jade.renderFile(jadeFile),(err) =>{
             if (err) this.log(err);
-            this.log(html + ' skompilowany');
+            this.log(`${html} skompilowany przez 'jade'`);
         });
     },
     stylus: function (styl, css) {
         fs.readFile(styl,(err, file) => {
             if (err) this.log(err);
-            fs.writeFile(css, stylus.render(file.toString()), () => this.log(css + ' skompilowany'));
+            fs.writeFile(css, stylus.render(file.toString()), () => this.log(`${css} skompilowany przez 'stylus'`));
         });
     },
     babel: function(es6, js){
@@ -43,7 +43,7 @@ module.exports = {
                 stage: 0
             }, (err) => {
                 if(err) this.log(err);
-                this.log(js + ' skompilowany');
+                this.log(`${js} skompilowany przez 'babel'`);
             });
         });
     },
