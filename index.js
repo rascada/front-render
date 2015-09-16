@@ -11,6 +11,7 @@ server.listen(80, function(){
 		render.log(`zapisuje logi do ${render.logs}`, true);
 });
 
+app.use(express.static('public'));
 app.set('view engine', 'jade');
 app.get('/', function(req, res){
 		res.render('index.jade');
