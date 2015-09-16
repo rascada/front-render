@@ -1,0 +1,14 @@
+body
+ background #333
+ color #fff
+ font-family 'PT Sans Narrow'
+ul
+	padding .25em
+	list-style-type none
+	li
+		&:hover + ul
+			display block
+		& + ul
+			display none
+			padding-left .5em
+			border-left .1em solid
