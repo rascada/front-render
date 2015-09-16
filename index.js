@@ -20,3 +20,9 @@ app.get('/', function(req, res){
 io.on('connection', function (socket) {
   render.log(`nawiązano połączenie ${socket.id}`);    
 });
+
+render.watch(
+ render.stylus, 
+ 'views/main.styl', 
+ 'public/main.css'
+);
