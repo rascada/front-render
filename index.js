@@ -7,7 +7,8 @@ let render = require('./render.js'),
     io = require('socket.io')(server);
 
 server.listen(80, function(){
-	render.log(`Serwer uruchomiony ${server.address().port}`); 
+		render.log(`Serwer uruchomiony ${server.address().port}`); 
+		render.log(`zapisuje logi do ${render.logs}`, true);
 });
 
 app.get('/', function(req, res){
