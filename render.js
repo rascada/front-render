@@ -47,10 +47,10 @@ module.exports = {
             });
         });
     },
-    log: function(message){
-		message = `[${new Date().toLocaleString()}] [renderjs] ${message}`;
-
-        console.log(message);
-        if(this.logs) fs.appendFile(this.logs, `${message}\n`);
+    log: function(message, consoleOnly){
+						message = `[${new Date().toLocaleString()}] [renderjs] ${message}`;
+						
+						console.log(message);
+						if(!consoleOnly && this.logs) fs.appendFile(this.logs, `${message}\n`);
     }
 };
