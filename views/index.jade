@@ -1,0 +1,20 @@
+doctype html
+head
+	title Test
+	link(href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,latin-ext' rel='stylesheet')
+	link(rel='stylesheet' href='main.css')
+body
+	h1 renderjs
+	ul
+		-function putOut(file, is){
+			li #{is}			
+			ul
+				each i, fileIn in file
+					-if(typeof i == 'object') putOut(i, fileIn)
+					-else 
+						li #{fileIn}					
+		-}
+		each file, is in dir
+			-if(typeof file == 'object') putOut(file, is)
+			-else 
+				li #{is}
