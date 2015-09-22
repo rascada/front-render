@@ -2,19 +2,77 @@ doctype html
 head
 	title Test
 	link(href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,latin-ext' rel='stylesheet')
+	link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
 	link(rel='stylesheet' href='main.css')
 body
-	h1 renderjs
-	ul
-		-function putOut(file, is){
-			li #{is}			
-			ul
-				each i, fileIn in file
-					-if(typeof i == 'object') putOut(i, fileIn)
-					-else 
-						li #{fileIn}					
-		-}
-		each file, is in dir
-			-if(typeof file == 'object') putOut(file, is)
-			-else 
-				li #{is}
+	ul#console
+	#fileManager
+		#bar
+			button(onclick='back()') cofnij	
+			input#path
+			h1 renderjs
+		ul#__dirname
+			-function putOut(file, is){
+				li.folder 
+					i.fa.fa-folder
+					span #{is}			
+				ul
+					li.folder(onclick='back()')
+						i.fa.fa-folder
+						span ..
+					each i, fileIn in file
+						-if(typeof i == 'object') putOut(i, fileIn)
+						-else 
+							- var i = i.slice(22, i.length + 2)
+							a(href="/#{i} ")
+								li
+									i.fa.fa-file
+									span #{fileIn}
+			-}
+			each file, is in dir
+				-if(typeof file == 'object') putOut(file, is)
+				-else 
+					- var file = file.slice(22, file.length + 2)
+					a(href="/#{file} ")
+						li
+							i.fa.fa-file
+							span #{is}
+	script(src="/socket.io.js")
+	script.
+		var socket = io.connect(window.location.href),
+			$fileManager = document.getElementById('fileManager'),
+			$console = document.getElementById('console'),
+			$path = document.getElementById('path'), dirTree,
+			li = [].slice.call($fileManager.getElementsByTagName('li'));
+
+		socket.on('log', function(data){
+			if (data.log.search('public/main.css skompilowany') != -1){
+				window.location.reload();
+			}
+			var li = document.createElement('li');
+
+			li.innerText = data.log
+			$console.appendChild(li);
+		});
+		socket.on('dirTree', function(data){
+			dirTree = data.dirTree;
+		});
+
+		var last = [];
+
+		function back(){
+			$path.value = $path.value.slice(0, $path.value.length - last[last.length - 1].children[1].innerText.length - 1)
+			last[last.length - 1].nextSibling.style.display = 'none';
+			last.pop();
+		}
+
+		function folder(target){
+		}
+		document.onclick = function(e){
+			if(e.target.nextSibling.tagName == 'UL'){
+				$path.value += e.target.children[1].innerText + '/';
+				e.target.nextSibling.style.display = 'flex';
+				last.push(e.target);
+			}
+		};
+		

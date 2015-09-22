@@ -1,14 +1,105 @@
 body
- background #333
- color #fff
- font-family 'PT Sans Narrow'
-ul
-	padding .25em
-	list-style-type none
+	display flex
+	justify-content space-around
+	height 100vh
+	margin 0
+	align-items center
+	background #333
+	color #fff
+	font-family 'PT Sans Narrow'
+#fileManager
+	max-width 47em
+	#__dirname
+		height 20em
+		overflow-y scroll
+		position relative
+	ul
+		margin 0
+		box-sizing border-box
+		display flex
+		position absolute
+		width 100%
+		top 0
+		left 0
+		padding .25em
+		flex-wrap wrap
+		list-style-type none
+		background-color #eee
+	.folder
+		cursor pointer
+		i			
+			font-size 5.5em
+			color #ffca28
+	a
+		text-decoration none
 	li
-		&:hover + ul
-			display block
+		display flex
+		justify-content center
+		align-items center
+		width 5em
+		height 5em
+		box-sizing border-box
+		position relative
+		margin-bottom 2em
+		color #fff
+		margin 2em
+		& > *
+			pointer-events none
+		i			
+			position absolute
+			font-size 5em
+			color coral
+		span
+			position relative
+			top 3.75em
+			color coral
+			padding .1em .5em
+			border .1em solid
+			border-radius .2em
+			background-color #fff
 		& + ul
 			display none
 			padding-left .5em
 			border-left .1em solid
+			height 100%
+			z-index 2
+#bar
+	display flex
+	background #FFC107
+	#path
+		border 0
+		margin .25em .5em
+		padding .2em
+		border-radius .2em
+		color #FFC107
+		font-weight 600
+		&:focus
+			outline none
+	h1
+		margin 0
+	button
+		border 0
+		margin .5em .1em
+		padding .25em  
+		color #eee
+		cursor pointer
+		background transparent 
+		transition .75s ease
+		&:hover
+			background #eee
+			color #FFC107
+#console
+	list-style-type none
+	padding 0
+	margin 0
+	min-width 15em
+	min-height 50%
+	max-height 80%
+	background #eee
+	color #fff
+	border-radius .25em
+	overflow hidden
+	li
+		border-bottom .2em solid (#4CAF50 - 20%)
+		padding .5em .1em
+		background #4CAF50

@@ -29,6 +29,7 @@ fs.readdir(__dirname, function(err, files){
 });
 
 app.use(express.static('public'));
+app.use(express.static(__dirname));
 app.set('view engine', 'jade');
 app.get('/', function(req, res){
 	res.render('index.jade', {
@@ -37,7 +38,10 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function (socket) {
-	render.log(`nawiązano połączenie ${socket.id}`);    
+	render.log(`nawiązano połączenie ${socket.id}`);
+	render.socket = socket;
+	render.log('Witaj')
+	socket.emit('dirTree', {dirTree: dirTree});
 });
 
 render.watch(

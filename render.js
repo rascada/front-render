@@ -8,6 +8,7 @@ let fs = require('fs'),
 
 module.exports = {
     logs: path.join(__dirname, 'main.log'),
+    socket: null,
     watch: function (engine, file, render) {
         engine.call(this, file, render);
         fs.watchFile(file, () => engine.call(this, file, render));
@@ -51,6 +52,7 @@ module.exports = {
 						message = `[${new Date().toLocaleString()}] [renderjs] ${message}`;
 						
 						console.log(message);
+                        if(this.socket) this.socket.emit('log',{log: message});
 						if(!consoleOnly && this.logs) fs.appendFile(this.logs, `${message}\n`);
     }
 };
