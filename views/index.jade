@@ -71,4 +71,12 @@ body
 				last.push(e.target);
 			}
 		};
+
+		document.oncontextmenu = function(e){
+			e.preventDefault();
+			if(e.target.tagName == 'LI'){
+				if(e.target.className.search('folder') == -1)
+					confirm("Skompiluj " + e.target.innerText.toString());
+			}
+		}
 		
