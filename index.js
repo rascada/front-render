@@ -1,7 +1,7 @@
 'use strict';
 
 let render = require('./render.js'),
-    gui;
+    fs = require('fs'), gui;
 
 switch (process.argv[2]) {
     case "watch":
@@ -19,8 +19,7 @@ switch (process.argv[2]) {
 }
 
 if (gui) {
-    let fs = require('fs'),
-        path = require('path'),
+    let path = require('path'),
         express = require('express'),
         app = express(),
         server = require('http').createServer(app),
@@ -62,4 +61,15 @@ if (gui) {
 
 }
 render.log(`zapisuje logi do ${render.logs}`, true);
-render.toRender(require('./toRenderFiles'));
+
+try{
+    render.toRender(require('./toRenderFiles'));
+}catch(e){
+    render.log(e);
+    fs.writeFile('toRenderFiles.json', JSON.stringify( [ ['stylus', 'views/main.styl', 'public/main.css'] ] ), function(){
+        render.log("toRenderFiles.json created");
+
+        render.toRender(require('./toRenderFiles'));
+    });
+}
+
