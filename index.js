@@ -26,7 +26,7 @@ if (gui) {
         server = require('http').createServer(app),
         io = require('socket.io')(server);
 
-    server.listen(80, function () {
+    server.listen(8080, function () {
         render.log(`Serwer uruchomiony localhost:${server.address().port}`);
     });
 
