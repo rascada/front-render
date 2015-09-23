@@ -62,10 +62,4 @@ if(gui){
 
 }
 render.log(`zapisuje logi do ${render.logs}`, true);
-
-render.watch(
-	render.stylus,
-	'views/main.styl',
-	'public/main.css'
-);
-
+render.toRender(require('./toRenderFiles'));
