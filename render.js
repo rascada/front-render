@@ -8,10 +8,10 @@ let fs = require('fs'),
 
 module.exports = {
     logs: path.join(__dirname, 'main.log'),
-    socket: null,
+    socket: null, watcher: false,
     watch: function (engine, file, render) {
         engine.call(this, file, render);
-        fs.watchFile(file, () => engine.call(this, file, render));
+        if(this.watcher) fs.watchFile(file, () => engine.call(this, file, render));
     },
     watchFolder: function(dir){
         fs.watch(dir, function (event, filename) {
