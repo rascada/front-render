@@ -4,6 +4,7 @@ let fs = require('fs'),
     path = require('path'),
     jade = require('jade'),
     stylus = require('stylus'),
+    stylusAP = require('autoprefixer-stylus'),
     babel = require('babel');
 
 module.exports = {
@@ -37,7 +38,9 @@ module.exports = {
     stylus: function (styl, css) {
         fs.readFile(styl, (err, file) => {
             if (err) this.log(err);
-            fs.writeFile(css, stylus.render(file.toString()), () => this.log(`${css} skompilowany przez 'stylus'`));
+            stylus(file.toString()).use( stylusAP() ).render((err, cssFile)=>{
+                fs.writeFile(css, cssFile, () => this.log(`${css} skompilowany przez 'stylus'`));
+            });
         });
     },
     babel: function (es6, js) {
