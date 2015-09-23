@@ -22,21 +22,17 @@ body
 						span ..
 					each i, fileIn in file
 						-if(typeof i == 'object') putOut(i, fileIn)
-						-else 
-							- var i = i.slice(22, i.length + 2)
-							a(href="/#{i} ")
-								li
-									i.fa.fa-file
-									span #{fileIn}
+						-else
+							li
+								i.fa.fa-file
+								span #{fileIn}
 			-}
 			each file, is in dir
 				-if(typeof file == 'object') putOut(file, is)
-				-else 
-					- var file = file.slice(22, file.length + 2)
-					a(href="/#{file} ")
-						li
-							i.fa.fa-file
-							span #{is}
+				-else
+					li
+						i.fa.fa-file
+						span #{is}
 	script(src="/socket.io.js")
 	script.
 		var socket = io.connect(window.location.href),

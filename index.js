@@ -29,7 +29,6 @@ fs.readdir(__dirname, function(err, files){
 });
 
 app.use(express.static('public'));
-app.use(express.static(__dirname));
 app.set('view engine', 'jade');
 app.get('/', function(req, res){
 	res.render('index.jade', {
