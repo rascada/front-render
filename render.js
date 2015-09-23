@@ -9,6 +9,11 @@ let fs = require('fs'),
 module.exports = {
     logs: path.join(__dirname, 'main.log'),
     socket: null, watcher: false,
+    toRender: function(toRenderFiles){
+        toRenderFiles.forEach((file)=> {
+            this.watch(this[file[0]], file[1], file[2]);
+        });
+    },
     watch: function (engine, file, render) {
         engine.call(this, file, render);
         if(this.watcher) fs.watchFile(file, () => engine.call(this, file, render));
