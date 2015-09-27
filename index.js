@@ -29,26 +29,11 @@ if (gui) {
         render.log(`Serwer uruchomiony localhost:${server.address().port}`);
     });
 
-    let dirTree = {};
-    fs.readdir(__dirname, function (err, files) {
-        let isFolder = (files, prevFile, prevPer) => {
-            files.forEach(function (file) {
-                let dir = path.join(prevFile, file);
-                if (fs.statSync(dir).isDirectory()) {
-                    if (!prevPer.hasOwnProperty(file)) prevPer[file] = {};
-                    isFolder(fs.readdirSync(dir), dir, prevPer[file]);
-                } else
-                    prevPer[file] = dir;
-            });
-        };
-        isFolder(files, __dirname, dirTree);
-    });
-
     app.use(express.static('public'));
     app.set('view engine', 'jade');
     app.get('/', function (req, res) {
         res.render('index.jade', {
-            dir: dirTree
+            dir: render.dirTree
         });
     });
 
@@ -56,7 +41,7 @@ if (gui) {
         render.log(`nawiązano połączenie ${socket.id}`);
         render.socket = socket;
         render.log('Witaj');
-        socket.emit('dirTree', {dirTree: dirTree});
+        socket.emit('dirTree', {dirTree: render.dirTree});
     });
 
 }
