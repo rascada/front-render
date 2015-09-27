@@ -3,19 +3,19 @@
 let render = require('./render.js'),
     fs = require('fs'), gui;
 
-if(process.argv[4]){
+if(process.argv[4]){ //when 3 arguments render one file - stylus views/main.styl public/main.css
     render[process.argv[2]](process.argv[3], process.argv[4]);
 }else {
     switch (process.argv[2]) {
-        case "watch":
+        case "watch": // watch files from toRenderFiles.json
             render.inspect(process.argv[3], true);
             break;
-        case "gui":
+        case "gui": // gui beta on localhost:8080
             render.log('gui mode');
             render.inspect(process.argv[3], true);
             gui = true;
             break;
-        default:
+        default: // 0 arguments - one compile from toRenderFiles.json
             render.render();
             break;
     }
