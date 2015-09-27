@@ -16,13 +16,13 @@ let render = {
             toRenderFiles.forEach((file)=> {
                 this.watch(this[file[0]], file[1], file[2]);
             });
+        else this.log('rendering abort, toRenderFiles.json is empty');
     },
     inspect: function (userPath, watchFiles) {
         userPath = userPath || __dirname;
         this.log(`render dir root is ${userPath}`);
 
         if (watchFiles) {
-            this.log('looking for toRenderFiles.json');
             this.renderJSON(userPath);
         }
         fs.readdir(userPath || __dirname, (err, files)=> {
@@ -48,18 +48,21 @@ let render = {
         if (userPath) this.watcher = true;
         else userPath = process.cwd();
 
-        this.watcher ? this.log(`watching ${userPath}/*`) : this.log('just one rendering');
-        try {
-            let toRenderFiles = path.join(userPath, 'toRenderFiles');
+        this.watcher ? this.log(`watching ${userPath}/*`) : this.log(`just one rendering ${userPath}/*`);
 
-            render.toRender(require(toRenderFiles));
-            this.log(`wczytano ${toRenderFiles}.json`)
+        this.log('looking for toRenderFiles.json');
+
+        let toRenderFiles = path.join(userPath, 'toRenderFiles');
+
+        try {
+            let json = require(toRenderFiles);
+            this.log(`wczytano ${toRenderFiles}.json`);
+            render.toRender(json);
         } catch (e) {
-            render.log(e);
             render.log('Nie odnaleziono pliku toRenderFiles.json');
-            fs.writeFile(path.join(userPath, 'toRenderFiles.json'), JSON.stringify([['stylus', 'views/main.styl', 'public/main.css']]), function () {
+            fs.writeFile(`${toRenderFiles}.json`, JSON.stringify([]), function () {
                 render.log("toRenderFiles.json created");
-                render.toRender(require(path.join(userPath, 'toRenderFiles')));
+                render.toRender(require(toRenderFiles));
             });
         }
     },
