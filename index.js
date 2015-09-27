@@ -1,17 +1,16 @@
 'use strict';
 
 let render = require('./render.js'),
-    fs = require('fs'), gui,
-    inspectFolder = '';
+    fs = require('fs'), gui;
 
 switch (process.argv[2]) {
     case "watch":
         render.log('watch mode');
-        render.inspect(inspectFolder);
+        render.inspect(process.argv[3]);
         break;
     case "gui":
         render.log('gui mode');
-        render.inspect(inspectFolder);
+        render.inspect(process.argv[3]);
         gui = true;
         break;
     default:
