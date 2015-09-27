@@ -16,7 +16,7 @@ if(process.argv[4]){ //when 3 arguments render one file - stylus views/main.styl
             gui = true;
             break;
         default: // 0 arguments - one compile from toRenderFiles.json
-            render.render();
+            render.renderJSON();
             break;
     }
 }

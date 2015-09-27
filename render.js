@@ -36,6 +36,21 @@ let render = {
         engine.call(this, file, render);
         if (this.watcher) fs.watchFile(file, () => engine.call(this, file, render));
     },
+    renderJSON: function(userPath){
+        if(userPath) this.watcher = true;
+
+        this.watcher ? this.log('listen files') : this.log('just one rendering');
+        try{
+            render.toRender(require(path.join(userPath, 'toRenderFiles')));
+        }catch(e){
+            render.log(e);
+            render.log('Nie odnaleziono pliku toRenderFiles.json');
+            fs.writeFile(path.join(userPath, 'toRenderFiles.json'), JSON.stringify( [ ['stylus', 'views/main.styl', 'public/main.css'] ] ), function(){
+                render.log("toRenderFiles.json created");
+                render.toRender(require(path.join(userPath, 'toRenderFiles')));
+            });
+        }
+    },
     watchFolder: function (dir) {
         fs.watch(dir, function (event, filename) {
             console.log('event is: ' + event);
@@ -85,16 +100,5 @@ let render = {
 };
 
 render.log(`zapisuje logi do ${render.logs}`, true);
-
-try{
-    render.toRender(require('./toRenderFiles'));
-}catch(e){
-    render.log(e);
-    render.log('Nie odnaleziono pliku toRenderFiles.json');
-    fs.writeFile('toRenderFiles.json', JSON.stringify( [ ['stylus', 'views/main.styl', 'public/main.css'] ] ), function(){
-        render.log("toRenderFiles.json created");
-        render.toRender(require('./toRenderFiles'));
-    });
-}
 
 module.exports = render;
