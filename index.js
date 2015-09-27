@@ -46,15 +46,3 @@ if (gui) {
 
 }
 
-try{
-    render.toRender(require('./toRenderFiles'));
-}catch(e){
-    render.log(e);
-    render.log('Nie odnaleziono pliku toRenderFiles.json');
-    fs.writeFile('toRenderFiles.json', JSON.stringify( [ ['stylus', 'views/main.styl', 'public/main.css'] ] ), function(){
-        render.log("toRenderFiles.json created");
-
-        render.toRender(require('./toRenderFiles'));
-    });
-}
-
