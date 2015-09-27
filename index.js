@@ -3,21 +3,23 @@
 let render = require('./render.js'),
     fs = require('fs'), gui;
 
-switch (process.argv[2]) {
-    case "watch":
-        render.log('watch mode');
-        render.inspect(process.argv[3]);
-        break;
-    case "gui":
-        render.log('gui mode');
-        render.inspect(process.argv[3]);
-        gui = true;
-        break;
-    default:
-        render.log('Just one compile');
-        break;
+if(process.argv[4]){
+    render[process.argv[2]](process.argv[3], process.argv[4]);
+}else {
+    switch (process.argv[2]) {
+        case "watch":
+            render.inspect(process.argv[3], true);
+            break;
+        case "gui":
+            render.log('gui mode');
+            render.inspect(process.argv[3], true);
+            gui = true;
+            break;
+        default:
+            render.render();
+            break;
+    }
 }
-
 if (gui) {
     let path = require('path'),
         express = require('express'),
