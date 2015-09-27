@@ -12,9 +12,10 @@ let render = {
     logs: path.join(__dirname, 'main.log'),
     socket: null, watcher: false, dirTree: {},
     toRender: function (toRenderFiles) {
-        toRenderFiles.forEach((file)=> {
-            this.watch(this[file[0]], file[1], file[2]);
-        });
+        if (toRenderFiles[0])
+            toRenderFiles.forEach((file)=> {
+                this.watch(this[file[0]], file[1], file[2]);
+            });
     },
     inspect: function (userPath, watchFiles) {
         userPath = userPath || __dirname;
