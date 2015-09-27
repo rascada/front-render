@@ -59,7 +59,7 @@ module.exports = {
                 .use(nib()).use(stylusAP())
                 .render((err, cssFile) =>
                     fs.writeFile(css, cssFile, () =>
-                        this.log(`${css} skompilowany przez 'stylus, nib, auto-prefixer'`)));
+                        this.log(`${css} skompilowany przez 'stylus', 'nib', 'auto-prefixer'`)));
         });
     },
     babel: function (es6, js) {
