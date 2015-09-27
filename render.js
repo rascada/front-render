@@ -10,11 +10,27 @@ let fs = require('fs'),
 
 module.exports = {
     logs: path.join(__dirname, 'main.log'),
-    socket: null, watcher: false,
+    socket: null, watcher: false, dirTree: {},
     toRender: function (toRenderFiles) {
         toRenderFiles.forEach((file)=> {
             this.watch(this[file[0]], file[1], file[2]);
         });
+    },
+    inspect: function (userPath) {
+        fs.readdir( userPath || __dirname, (err, files)=> {
+            let isFolder = (files, prevDir, folder) => {
+                files.forEach(function (file) {
+                    let dir = path.join(prevDir, file);
+                    if (fs.statSync(dir).isDirectory()) {
+                        if (!folder.hasOwnProperty(file)) folder[file] = {};
+                        isFolder(fs.readdirSync(dir), dir, folder[file]);
+                    } else
+                        folder[file] = dir;
+                });
+            };
+            isFolder(files, userPath || __dirname, this.dirTree);
+        });
+        this.log('directory tree created');
     },
     watch: function (engine, file, render) {
         engine.call(this, file, render);
@@ -39,9 +55,9 @@ module.exports = {
     stylus: function (styl, css) {
         fs.readFile(styl, (err, file) => {
             if (err) this.log(err);
-            stylus( file.toString() )
-                .use( nib() ).use( stylusAP() )
-                .render( (err, cssFile) =>
+            stylus(file.toString())
+                .use(nib()).use(stylusAP())
+                .render((err, cssFile) =>
                     fs.writeFile(css, cssFile, () =>
                         this.log(`${css} skompilowany przez 'stylus, nib, auto-prefixer'`)));
         });
