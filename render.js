@@ -46,6 +46,7 @@ let render = {
     },
     renderJSON: function (userPath) {
         if (userPath) this.watcher = true;
+        else userPath = process.cwd();
 
         this.watcher ? this.log(`watching ${userPath}/*`) : this.log('just one rendering');
         try {
