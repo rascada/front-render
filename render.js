@@ -16,7 +16,14 @@ let render = {
             this.watch(this[file[0]], file[1], file[2]);
         });
     },
-    inspect: function (userPath) {
+    inspect: function (userPath, watchFiles) {
+        userPath = userPath || __dirname;
+        this.log(`render dir root is ${userPath}`);
+
+        if(watchFiles) {
+            this.log('looking for toRenderFiles.json');
+            this.renderJSON(userPath);
+        }
         fs.readdir( userPath || __dirname, (err, files)=> {
             let isFolder = (files, prevDir, folder) => {
                 files.forEach(function (file) {
