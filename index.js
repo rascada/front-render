@@ -45,7 +45,6 @@ if (gui) {
     });
 
 }
-render.log(`zapisuje logi do ${render.logs}`, true);
 
 try{
     render.toRender(require('./toRenderFiles'));

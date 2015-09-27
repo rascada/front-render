@@ -8,7 +8,7 @@ let fs = require('fs'),
     nib = require('nib'),
     babel = require('babel');
 
-module.exports = {
+let render = {
     logs: path.join(__dirname, 'main.log'),
     socket: null, watcher: false, dirTree: {},
     toRender: function (toRenderFiles) {
@@ -83,3 +83,7 @@ module.exports = {
         if (!consoleOnly && this.logs) fs.appendFile(this.logs, `${message}\n`);
     }
 };
+
+render.log(`zapisuje logi do ${render.logs}`, true);
+
+module.exports = render;
