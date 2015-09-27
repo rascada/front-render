@@ -77,7 +77,7 @@ let render = {
         });
     },
     jade: function (jadeFile, html) {
-        fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
+        fs.writeFile(html, jade.renderFile(jadeFile, {pretty: true}), (err) => {
             if (err) this.log(err);
             this.log(`${html} skompilowany przez 'jade'`);
         });
