@@ -21,11 +21,11 @@ let render = {
         userPath = userPath || __dirname;
         this.log(`render dir root is ${userPath}`);
 
-        if(watchFiles) {
+        if (watchFiles) {
             this.log('looking for toRenderFiles.json');
             this.renderJSON(userPath);
         }
-        fs.readdir( userPath || __dirname, (err, files)=> {
+        fs.readdir(userPath || __dirname, (err, files)=> {
             let isFolder = (files, prevDir, folder) => {
                 files.forEach(function (file) {
                     let dir = path.join(prevDir, file);
@@ -38,22 +38,25 @@ let render = {
             };
             isFolder(files, userPath || __dirname, this.dirTree);
         });
-        this.log('directory tree created');
+        this.log(`directory tree ${userPath}/* created`);
     },
     watch: function (engine, file, render) {
         engine.call(this, file, render);
         if (this.watcher) fs.watchFile(file, () => engine.call(this, file, render));
     },
-    renderJSON: function(userPath){
-        if(userPath) this.watcher = true;
+    renderJSON: function (userPath) {
+        if (userPath) this.watcher = true;
 
-        this.watcher ? this.log('listen files') : this.log('just one rendering');
-        try{
-            render.toRender(require(path.join(userPath, 'toRenderFiles')));
-        }catch(e){
+        this.watcher ? this.log(`watching ${userPath}/*`) : this.log('just one rendering');
+        try {
+            let toRenderFiles = path.join(userPath, 'toRenderFiles');
+
+            render.toRender(require(toRenderFiles));
+            this.log(`wczytano ${toRenderFiles}.json`)
+        } catch (e) {
             render.log(e);
             render.log('Nie odnaleziono pliku toRenderFiles.json');
-            fs.writeFile(path.join(userPath, 'toRenderFiles.json'), JSON.stringify( [ ['stylus', 'views/main.styl', 'public/main.css'] ] ), function(){
+            fs.writeFile(path.join(userPath, 'toRenderFiles.json'), JSON.stringify([['stylus', 'views/main.styl', 'public/main.css']]), function () {
                 render.log("toRenderFiles.json created");
                 render.toRender(require(path.join(userPath, 'toRenderFiles')));
             });
