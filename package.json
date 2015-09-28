@@ -1,19 +1,19 @@
 {
-  "name": "renderjs",
-  "version": "1.0.0",
+  "name": "front-render",
+  "version": "0.0.3",
   "description": "",
-  "private": true,
-  "main": "index.js",
+  "main": "index",
+  "bin" : { "front-render" : "./index.js" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://rascada@bitbucket.org/rascada/renderjs.git"
+    "url": "git+https://rascada@bitbucket.org/rascada/front-render.git"
   },
   "author": "Damian Martyniak",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/rascada/renderjs#readme",
+  "license": "UNLICENSED",
+  "homepage": "https://bitbucket.org/rascada/front-render#readme",
   "dependencies": {
     "autoprefixer-stylus": "^0.7.1",
     "babel": "^5.8.23",
