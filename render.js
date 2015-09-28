@@ -16,7 +16,7 @@ let render = {
             toRenderFiles.forEach((file)=> {
                 this.watch(this[file[0]], file[1], file[2]);
             });
-        else this.log('rendering abort, toRenderFiles.json is empty');
+        else this.log('rendering abort, toRender.json is empty');
     },
     inspect: function (userPath, watchFiles) {
         userPath = userPath || __dirname;
@@ -50,19 +50,19 @@ let render = {
 
         this.watcher ? this.log(`watching ${userPath}/*`) : this.log(`just one rendering ${userPath}/*`);
 
-        this.log('looking for toRenderFiles.json');
+        this.log('looking for toRender.json');
 
-        let toRenderFiles = path.join(userPath, 'toRenderFiles');
+        let toRender = path.join(userPath, 'toRender');
 
         try {
-            let json = require(toRenderFiles);
-            this.log(`wczytano ${toRenderFiles}.json`);
+            let json = require(toRender);
+            this.log(`wczytano ${toRender}.json`);
             render.toRender(json);
         } catch (e) {
-            render.log('Nie odnaleziono pliku toRenderFiles.json');
-            fs.writeFile(`${toRenderFiles}.json`, JSON.stringify([]), function () {
-                render.log("toRenderFiles.json created");
-                render.toRender(require(toRenderFiles));
+            render.log('Nie odnaleziono pliku toRender.json');
+            fs.writeFile(`${toRender}.json`, JSON.stringify([]), function () {
+                render.log("toRender.json created");
+                render.toRender(require(toRender));
             });
         }
     },

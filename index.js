@@ -9,7 +9,7 @@ if(process.argv[4]){ //when 3 arguments render one file - stylus views/main.styl
     render[process.argv[2]](process.argv[3], process.argv[4]);
 }else {
     switch (process.argv[2]) {
-        case "watch": // watch files from toRenderFiles.json
+        case "watch": // watch files from toRender.json
             render.inspect(process.argv[3], true);
             break;
         case "gui": // gui beta on localhost:8080
@@ -17,7 +17,7 @@ if(process.argv[4]){ //when 3 arguments render one file - stylus views/main.styl
             render.inspect(process.argv[3], true);
             gui = true;
             break;
-        default: // 0 arguments - one compile from toRenderFiles.json
+        default: // 0 arguments - one compile from toRender.json
             render.renderJSON();
             break;
     }
