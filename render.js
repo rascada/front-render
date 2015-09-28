@@ -56,10 +56,10 @@ let render = {
 
         try {
             let json = require(toRender);
-            this.log(`wczytano ${toRender}.json`);
+            this.log(`${toRender}.json loaded`);
             render.toRender(json);
         } catch (e) {
-            render.log('Nie odnaleziono pliku toRender.json');
+            render.log('toRender.json not found');
             fs.writeFile(`${toRender}.json`, JSON.stringify([]), function () {
                 render.log("toRender.json created");
                 render.toRender(require(toRender));
@@ -79,7 +79,7 @@ let render = {
     jade: function (jadeFile, html) {
         fs.writeFile(html, jade.renderFile(jadeFile, {pretty: true}), (err) => {
             if (err) this.log(err);
-            this.log(`${html} skompilowany przez 'jade'`);
+            this.log(`${html} rendered with 'jade'`);
         });
     },
     stylus: function (styl, css) {
@@ -89,7 +89,7 @@ let render = {
                 .use(nib()).use(stylusAP())
                 .render((err, cssFile) =>
                     fs.writeFile(css, cssFile, () =>
-                        this.log(`${css} skompilowany przez 'stylus', 'nib', 'auto-prefixer'`)));
+                        this.log(`${css} rendered with 'stylus', 'nib', 'auto-prefixer'`)));
         });
     },
     babel: function (es6, js) {
@@ -101,7 +101,7 @@ let render = {
                 stage: 0
             }, (err) => {
                 if (err) this.log(err);
-                this.log(`${js} skompilowany przez 'babel'`);
+                this.log(`${js} rendered with 'babel'`);
             });
         });
     },
@@ -114,6 +114,6 @@ let render = {
     }
 };
 
-render.log(`zapisuje logi do ${render.logs}`, true);
+render.log(`save logs to ${render.logs}`, true);
 
 module.exports = render;
