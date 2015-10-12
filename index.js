@@ -5,7 +5,7 @@
 let render = require('./render.js'),
     fs = require('fs'), gui;
 
-if(process.argv[4]){ //when 3 arguments render one file - stylus views/main.styl public/main.css
+if(process.argv[4]){ //when 3 arguments render one file - front-render stylus views/main.styl public/main.css
     render[process.argv[2]](process.argv[3], process.argv[4]);
 }else {
     switch (process.argv[2]) {

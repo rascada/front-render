@@ -51,7 +51,7 @@ let render = {
 
         this.watcher ? this.log(`watching ${userPath}/*`) : this.log(`just one rendering ${userPath}/*`);
 
-        this.log('looking for toRender.json');
+        this.log('looking for toRender.json in working directory');
 
         let toRender = path.join(userPath, 'toRender');
 
@@ -107,14 +107,12 @@ let render = {
         });
     },
     log: function (message, consoleOnly) {
-        message = `[${new Date().toLocaleString()}] [renderjs] ${message}`;
+        message = `[${new Date().toLocaleString()}] [front-render] ${message}`;
 
         console.log(message);
         if (this.socket) this.socket.emit('log', {log: message});
         if (!consoleOnly && this.logs) fs.appendFile(this.logs, `${message}\n`);
     }
 };
-
-render.log(`save logs to ${render.logs}`, true);
 
 module.exports = render;
