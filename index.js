@@ -17,6 +17,9 @@ if(process.argv[4]){ //when 3 arguments render one file - stylus views/main.styl
             render.inspect(process.argv[3], true);
             gui = true;
             break;
+        case "-v":
+            render.log(render.version);
+            break;
         default: // 0 arguments - one compile from toRender.json
             render.renderJSON();
             break;
@@ -37,6 +40,7 @@ if (gui) {
     app.set('view engine', 'jade');
     app.get('/', function (req, res) {
         res.render('index.jade', {
+            name: `front-render gui - alpha ${render.version}`,
             dir: render.dirTree
         });
     });

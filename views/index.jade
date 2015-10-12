@@ -1,6 +1,6 @@
 doctype html
 head
-	title Test
+	title #{name}
 	link(href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,latin-ext' rel='stylesheet')
 	link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
 	link(rel='stylesheet' href='main.css')
@@ -10,7 +10,7 @@ body
 		#bar
 			button(onclick='back()') cofnij	
 			input#path
-			h1 renderjs_gui beta
+			h1 #{name}
 		ul#__dirname
 			-function putOut(file, is){
 				li.folder 
