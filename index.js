@@ -10,7 +10,7 @@ if(process.argv[4]){ //when 3 arguments render one file - front-render stylus vi
 }else {
     switch (process.argv[2]) {
         case "watch": // watch files from toRender.json
-            render.inspect(process.argv[3], true);
+            render.inspect(process.cwd(), true);
             break;
         case "gui": // gui beta on localhost:8080
             render.log('gui mode');
