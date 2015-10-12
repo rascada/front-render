@@ -30,7 +30,7 @@ _
 ```json
 [
     [ "stylus", "views/main.styl", "public/main.css" ],
-	[ "babel", "views/main.js", "public/main.js ],
+	[ "babel", "views/main.js", "public/main.js" ],
 ]
 ```
 
