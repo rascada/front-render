@@ -1,9 +1,55 @@
-# README #
+# Front-render
 
-## How do I get set up? ##
+## Instalation
 
-npm i -g front-render
+```sh
+$ npm i -g front-render
+```
 
-* front-render - one compilation of toRenderFiles.json
-* front-render - index.js watch - compilation and watching files from toRenderFiles.json
-* front-render - index.js gui - gui_beta + watch of toRenderFiles.json
+
+## Available engines:
+- [babel](https://babeljs.io/)
+- [stylus](https://learnboost.github.io/stylus/)
+- [jade](http://jade-lang.com/)
+
+## rendering single file
+
+```sh
+# front-render [engine] [input] [output]
+~ front-render babel views/main.js public/main.js
+~ [10/12/2015, 2:09:03 AM] [front-render] public/main.js rendered with 'babel'
+~ front-render stylus main.styl main.css 
+_
+```
+
+
+## toRender.json
+
+#### Setting up file with predefined files to render
+
+```json
+[
+    [ "stylus", "views/main.styl", "public/main.css" ],
+	[ "babel", "views/main.js", "public/main.js ],
+]
+```
+
+#### and using it
+
+```sh
+# one compilation files listen in toRenderFiles.json
+~ front-render
+~ [10/12/2015, 2:04:20 AM] [front-render] looking for toRender.json in working directory
+```
+```sh
+# compilation and watching files from toRenderFiles.json
+~ front-render watch
+_
+```
+
+## Gui alpha
+
+```sh
+# gui_alpha + watch toRenderFiles.json
+~ front-render gui 
+```
