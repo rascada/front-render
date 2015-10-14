@@ -95,9 +95,14 @@ let render = {
 
             stylus( file )
                 .use(nib()).use(stylusAP())
-                .render((err, cssFile) =>
+                .render((err, cssFile) =>{
+                    if(err) {
+                        render.log(err);
+                        return false;
+                    }
                     fs.writeFile(css, cssFile, () =>
-                        this.log(`${css} rendered with 'stylus', 'nib', 'auto-prefixer'`)));
+                        this.log(`${css} rendered with 'stylus', 'nib', 'auto-prefixer'`));
+                });
         });
     },
     babel: function (es6, js) {
