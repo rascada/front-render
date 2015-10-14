@@ -9,7 +9,7 @@ let fs = require('fs'),
     babel = require('babel');
 
 let render = {
-    version:'0.0.5',
+    version:'0.0.6',
     logs: path.join(__dirname, 'main.log'),
     socket: null, watcher: false, dirTree: {},
     toRender: function (toRenderFiles) {
