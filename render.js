@@ -86,7 +86,14 @@ let render = {
     stylus: function (styl, css) {
         fs.readFile(styl, (err, file) => {
             if (err) this.log(err);
-            stylus(file.toString())
+
+            let $$path = path.join(process.cwd(), styl).split(path.sep);
+            $$path.pop();
+            $$path = `"` + $$path.join(path.sep) + path.sep;
+
+            file = file.toString().replace(/@import\s+"/gi, `@import ${$$path}`);
+
+            stylus( file )
                 .use(nib()).use(stylusAP())
                 .render((err, cssFile) =>
                     fs.writeFile(css, cssFile, () =>
