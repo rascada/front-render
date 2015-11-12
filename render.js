@@ -78,10 +78,10 @@ let render = {
             }
         });
     },
-    jade: function (jadeFile, html) {
-        fs.writeFile(html, jade.renderFile(jadeFile, {pretty: true}), (err) => {
-            if (err) this.log(err);
-            this.log(`${html} rendered with 'jade'`);
+    jade: function (jadeFile, html, done) {
+        fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
+            if (err) done( this.log(err) );
+            done( this.log(`${html} rendered with 'jade'`) );
         });
     },
     stylus: function (styl, css, done) {
