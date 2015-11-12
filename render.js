@@ -83,9 +83,10 @@ let render = {
             this.log(`${html} rendered with 'jade'`);
         });
     },
-    stylus: function (styl, css) {
+    stylus: function (styl, css, done) {
+
         fs.readFile(styl, (err, file) => {
-            if (err) this.log(err);
+            if (err) done( this.log(err) );
 
             let $$path = path.join(process.cwd(), styl).split(path.sep);
             $$path.pop();
@@ -97,11 +98,11 @@ let render = {
                 .use(nib()).use(stylusAP())
                 .render((err, cssFile) =>{
                     if(err) {
-                        render.log(err);
+                        done( render.log(err) );
                         return false;
                     }
                     fs.writeFile(css, cssFile, () =>
-                        this.log(`${css} rendered with 'stylus', 'nib', 'auto-prefixer'`));
+                        done( null, this.log(`${css} rendered with 'stylus', 'nib', 'auto-prefixer'`) ));
                 });
         });
     },
