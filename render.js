@@ -129,6 +129,10 @@ let render = {
             if (!consoleOnly && this.logsDirectory) fs.appendFile(this.logsDirectory, `${log}\n`);
         }
 
+        return {
+            log,
+            message
+        };
     }
 };
 
