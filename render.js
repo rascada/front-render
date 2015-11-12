@@ -109,7 +109,10 @@ let render = {
     },
     babel: function (es6, js) {
         babel.transformFile(es6, (err, babel) => {
-            if (err) this.log(err);
+            if (err) {
+                this.log(err);
+                return false
+            }
             fs.writeFile(js, babel.code, {
                 comments: false,
                 compact: true,
