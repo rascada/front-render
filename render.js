@@ -81,7 +81,7 @@ let render = {
     jade: function (jadeFile, html, done) {
         fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
             if (err) done( this.log(err) );
-            done( this.log(`${html} rendered with 'jade'`) );
+            done( null, this.log(`${html} rendered with 'jade'`) );
         });
     },
     stylus: function (styl, css, done) {
