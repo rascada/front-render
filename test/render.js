@@ -2,7 +2,8 @@
 
 let fs = require('fs'),
     tape = require('tape'),
-    fRender = require('../render');
+    fRender = require('../render'),
+    unlink = ext => fs.unlink( `test.${ext}` );
 
 fRender.logs = false;
 
@@ -27,7 +28,7 @@ tape('stylus compilation engine', test => {
                 if(err) test.fail(err);
 
                 test.equal(file.toString(), 'body {\n  background: #ff1a1a;\n}\n', log.message);
-                ['css', 'styl'].forEach( ext => fs.unlink( `test.${ext}` ) );
+                ['css', 'styl'].forEach( unlink );
             });
         });
     });
@@ -53,7 +54,7 @@ tape('babel compilation engine', test => {
                 if(err) test.fail(err);
 
                 test.equal(file.toString(), '"use strict";\n\nvar b = function b(_b) {\n        return _b <= 5;\n};', log.message);
-                ['js', 'es6.js'].forEach( ext => fs.unlink( `test.${ext}` ) );
+                ['js', 'es6.js'].forEach( unlink );
             });
         });
     });
@@ -77,6 +78,7 @@ tape('jade compilation engine', test => {
                 if(err) test.fail(err);
 
                 test.equal(file.toString(), '<!DOCTYPE html><body><h1>test</h1></body>', log.message);
+                ['jade', 'html'].forEach( unlink );
             });
         });
     });
