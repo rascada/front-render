@@ -78,10 +78,10 @@ let render = {
             }
         });
     },
-    jade: function (jadeFile, html) {
-        fs.writeFile(html, jade.renderFile(jadeFile, {pretty: true}), (err) => {
-            if (err) this.log(err);
-            this.log(`${html} rendered with 'jade'`);
+    jade: function (jadeFile, html, done) {
+        fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
+            if (err) done( this.log(err) );
+            done( this.log(`${html} rendered with 'jade'`) );
         });
     },
     stylus: function (styl, css, done) {
@@ -107,10 +107,10 @@ let render = {
                 });
         });
     },
-    babel: function (es6, js) {
+    babel: function (es6, js, done) {
         babel.transformFile(es6, (err, babel) => {
             if (err) {
-                this.log(err);
+                done( this.log(err) );
                 return false
             }
             fs.writeFile(js, babel.code, {
@@ -118,8 +118,8 @@ let render = {
                 compact: true,
                 stage: 0
             }, (err) => {
-                if (err) this.log(err);
-                this.log(`${js} rendered with 'babel'`);
+                if (err) done(this.log(err) );
+                done( null, this.log(`${js} rendered with 'babel'`) );
             });
         });
     },
