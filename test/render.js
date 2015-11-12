@@ -23,6 +23,9 @@ tape('stylus compilation engine', test => {
             if(err) test.fail(err);
 
             fs.readFile('test.css', function(err, file){
+
+                if(err) test.fail(err);
+
                 test.equal(file.toString(), 'body {\n  background: #ff1a1a;\n}\n', log.message);
                 ['css', 'styl'].forEach( ext => fs.unlink( `test.${ext}` ) );
             });
