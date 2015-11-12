@@ -18,12 +18,12 @@ tape('stylus compilation engine', test => {
 
         if (err) test.fail(err);
 
-        fRender.stylus('test.styl', 'test.css', function(err, msg){
+        fRender.stylus('test.styl', 'test.css', function(err, log){
 
             if(err) test.fail(err);
 
             fs.readFile('test.css', function(err, file){
-                test.equal(file.toString(), 'body {\n  background: #ff1a1a;\n}\n', msg);
+                test.equal(file.toString(), 'body {\n  background: #ff1a1a;\n}\n', log.message);
                 ['css', 'styl'].forEach( ext => fs.unlink( `test.${ext}` ) );
             });
         });
