@@ -58,3 +58,26 @@ tape('babel compilation engine', test => {
         });
     });
 });
+
+tape('jade compilation engine', test => {
+    test.plan(1);
+
+    let jade = 'doctype html\nbody\n   h1 test';
+
+    fs.writeFile('test.jade', jade, function(err){
+
+        if (err) test.fail(err);
+
+        fRender.jade('test.jade', 'test.html', function(err, log){
+
+            if(err) test.fail(err);
+
+            fs.readFile('test.html', function(err, file){
+
+                if(err) test.fail(err);
+
+                test.equal(file.toString(), '<!DOCTYPE html><body><h1>test</h1></body>', log.message);
+            });
+        });
+    });
+});
