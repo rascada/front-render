@@ -10,7 +10,8 @@ let fs = require('fs'),
 
 let render = {
     version:'0.0.6',
-    logs: path.join(__dirname, 'main.log'),
+    logs: true,
+    logsDirectory: path.join(__dirname, 'main.log'),
     socket: null, watcher: false, dirTree: {},
     toRender: function (toRenderFiles) {
         if (toRenderFiles[0])
@@ -120,11 +121,14 @@ let render = {
         });
     },
     log: function (message, consoleOnly) {
-        message = `[${new Date().toLocaleString()}] [front-render] ${message}`;
+        let log = `[${new Date().toLocaleString()}] [front-render] ${message}`;
 
-        console.log(message);
-        if (this.socket) this.socket.emit('log', {log: message});
-        if (!consoleOnly && this.logs) fs.appendFile(this.logs, `${message}\n`);
+        if(this.logs){
+            console.log(log);
+            if (this.socket) this.socket.emit('log', {log: log});
+            if (!consoleOnly && this.logsDirectory) fs.appendFile(this.logsDirectory, `${log}\n`);
+        }
+
     }
 };
 
