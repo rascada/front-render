@@ -47,7 +47,7 @@ _
 _
 ```
 
-## Gui alpha
+## up-render alpha
 
 ```sh
 # gui_alpha + watch toRenderFiles.json
