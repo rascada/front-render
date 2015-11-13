@@ -79,12 +79,21 @@ let render = {
         });
     },
     jade: function (jadeFile, html, done) {
-        fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
-            if (err) done( this.log(err) );
-            done( this.log(`${html} rendered with 'jade'`) );
-        });
+
+        if(!done) done = function(){};
+
+        try {
+            fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
+                if (err) done(this.log(err));
+                done(null, this.log(`${html} rendered with 'jade'`));
+            });
+        }catch(err){
+            done(err);
+        }
     },
     stylus: function (styl, css, done) {
+
+        if(!done) done = function(){};
 
         fs.readFile(styl, (err, file) => {
             if (err) done( this.log(err) );
@@ -113,6 +122,9 @@ let render = {
                 done( this.log(err) );
                 return false
             }
+
+            if(!done) done = function(){};
+
             fs.writeFile(js, babel.code, {
                 comments: false,
                 compact: true,
