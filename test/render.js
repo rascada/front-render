@@ -83,3 +83,12 @@ tape('jade compilation engine', test => {
         });
     });
 });
+
+tape("jade when file don't exist", test =>{
+    test.plan(1);
+
+    fRender.jade('err.jade', 'err.html', function(err, log){
+        if(err) test.pass(err);
+        else test.fail(log);
+    });
+});
