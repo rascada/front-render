@@ -82,10 +82,14 @@ let render = {
 
         if(!done) done = function(){};
 
-        fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
-            if (err) done( this.log(err) );
-            done( null, this.log(`${html} rendered with 'jade'`) );
-        });
+        try {
+            fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
+                if (err) done(this.log(err));
+                done(null, this.log(`${html} rendered with 'jade'`));
+            });
+        }catch(err){
+            done(err);
+        }
     },
     stylus: function (styl, css, done) {
 
