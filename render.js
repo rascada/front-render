@@ -118,12 +118,13 @@ let render = {
     },
     babel: function (es6, js, done) {
         babel.transformFile(es6, (err, babel) => {
+
+            if(!done) done = function(){};
+
             if (err) {
                 done( this.log(err) );
                 return false
             }
-
-            if(!done) done = function(){};
 
             fs.writeFile(js, babel.code, {
                 comments: false,
