@@ -1,7 +1,7 @@
 'use strict';
 
 let fs = require('fs');
-let path = require('path');
+let Path = require('path');
 
 let jade = require('jade');
 let babel = require('babel');
@@ -17,7 +17,7 @@ let pkg = require('./package');
 let render = {
   version: pkg.version,
   logs: true,
-  logsDirectory: path.join(__dirname, 'main.log'),
+  logsDirectory: Path.join(__dirname, 'main.log'),
   socket: null, watcher: false, dirTree: {},
 
   toRender: function(toRenderFiles) {
@@ -30,7 +30,7 @@ let render = {
 
   inspect: function(userPath, watchFiles) {
     let stream = rdp({
-      root: path.join(userPath || __dirname),
+      root: Path.join(userPath || __dirname),
       directoryFilter: ['!node_modules', '!.git', '!.idea'],
     });
 
@@ -55,7 +55,7 @@ let render = {
 
     this.log('looking for toRender.json in working directory');
 
-    let toRender = path.join(userPath, 'toRender');
+    let toRender = Path.join(userPath, 'toRender');
 
     try {
       let json = require(toRender);
@@ -102,9 +102,9 @@ let render = {
     fs.readFile(styl, (err, file) => {
       if (err) done(this.log(err));
 
-      let $$path = path.join(process.cwd(), styl).split(path.sep);
+      let $$path = Path.join(process.cwd(), styl).split(Path.sep);
       $$path.pop();
-      $$path = `"` + $$path.join(path.sep) + path.sep;
+      $$path = `"` + $$path.join(Path.sep) + Path.sep;
 
       file = file.toString().replace(/@import\s+"/gi, `@import ${$$path}`);
 
