@@ -15,10 +15,9 @@ module.exports = class DirectoryTree{
       directoryFilter: ['!node_modules', '!.git', '!.idea'],
     });
 
-    stream
+    return stream
       .on('warn', err => render.log('non-fatal error', err))
       .on('error', err => render.log('fatal error', err))
-      .on('end', _=> console.log(this.tree))
       .on('data', data => this.createDir(data));
   }
 
