@@ -9,16 +9,15 @@ let stylus = require('stylus');
 let stylusAP = require('autoprefixer-stylus');
 let nib = require('nib');
 
-let rdp = require('readdirp');
-let es = require('event-stream');
-
 let pkg = require('./package');
+let DirectoryTree = require('./classes/DirectoryTree');
 
 let render = {
   version: pkg.version,
   logs: true,
   logsDirectory: Path.join(__dirname, 'main.log'),
   socket: null, watcher: false, dirTree: {},
+  directoryTree: null,
 
   toRender: function(toRenderFiles) {
     if (toRenderFiles[0])
@@ -29,29 +28,7 @@ let render = {
   },
 
   inspect: function(userPath, watchFiles) {
-    let stream = rdp({
-      root: Path.join(userPath || __dirname),
-      directoryFilter: ['!node_modules', '!.git', '!.idea'],
-    });
-
-    let tree = {};
-
-    stream
-      .on('warn', err => this.log('non-fatal error', err))
-      .on('error', err => this.log('fatal error', err))
-      .on('end', _=> this.dirTree = tree)
-      .on('data', data => {
-        if (!data.parentDir) tree[data.name] = data;
-        else {
-          let path = data.parentDir.split(Path.sep);
-          let currentDir = tree;
-
-          path.forEach(directory => {
-            currentDir = currentDir[directory] = {};
-          });
-          currentDir[data.name] = data;
-        }
-      });
+    this.directoryTree = new DirectoryTree(userPath);
   },
 
   watch: function(engine, file, render) {
