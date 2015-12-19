@@ -17,7 +17,7 @@ let render = {
   logs: true,
   logsDirectory: Path.join(__dirname, 'main.log'),
   socket: null, watcher: false, dirTree: {},
-  directoryTree: null,
+  directoryTree: new DirectoryTree(),
 
   toRender: function(toRenderFiles) {
     if (toRenderFiles[0])
@@ -25,10 +25,6 @@ let render = {
         this.watch(this[file[0]], file[1], file[2]);
       });
     else this.log('rendering abort, toRender.json is empty');
-  },
-
-  inspect: function(userPath, watchFiles) {
-    this.directoryTree = new DirectoryTree(userPath);
   },
 
   watch: function(engine, file, render) {
