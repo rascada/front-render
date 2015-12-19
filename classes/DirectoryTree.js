@@ -35,4 +35,4 @@ module.exports = class DirectoryTree{
       currentDir[data.name] = data;
     }
   }
-}
+};

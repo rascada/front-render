@@ -10,7 +10,7 @@ if (process.argv[4]) { //when 3 arguments render one file - front-render stylus 
 }else {
   switch (process.argv[2]) {
     case 'watch': // watch files from toRender.json
-      render.inspect(process.cwd(), true);
+      render.renderJSON(process.cwd());
       break;
     case '-v':
       render.log(render.version);
