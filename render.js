@@ -34,12 +34,24 @@ let render = {
       directoryFilter: ['!node_modules', '!.git', '!.idea'],
     });
 
+    let tree = {};
+
     stream
       .on('warn', err => this.log('non-fatal error', err))
       .on('error', err => this.log('fatal error', err))
-      .on('data', data => console.log(data.parentDir, data.name));
+      .on('end', _=> this.dirTree = tree)
+      .on('data', data => {
+        if (!data.parentDir) tree[data.name] = data;
+        else {
+          let path = data.parentDir.split(Path.sep);
+          let currentDir = tree;
 
-    //.pipe(es.stringify())
+          path.forEach(directory => {
+            currentDir = currentDir[directory] = {};
+          });
+          currentDir[data.name] = data;
+        }
+      });
   },
 
   watch: function(engine, file, render) {
