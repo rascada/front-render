@@ -1,5 +1,3 @@
 .idea
 node_modules/
 main.log
-public/socket.io.js
-*.css

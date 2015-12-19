@@ -1,21 +1,23 @@
 {
   "name": "front-render",
   "version": "0.0.7",
-  "description": "",
+  "description": "front end assets compiler",
   "main": "index",
   "bin": {
     "front-render": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "npm i && npm link"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://rascada@bitbucket.org/rascada/front-render.git"
+    "url": "git+https://rascada@github.com/rascada/front-render.git"
   },
   "author": "Damian Martyniak",
   "license": "UNLICENSED",
-  "homepage": "https://bitbucket.org/rascada/front-render#readme",
+  "homepage": "https://github.com/rascada/front-render#readme",
+  "bugs": "https://github.com/rascada/front-render/issues",
   "dependencies": {
     "autoprefixer-stylus": "^0.7.1",
     "babel": "^5.8.23",
