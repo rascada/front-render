@@ -2,11 +2,15 @@
 
 let fs = require('fs'),
     path = require('path'),
+
     jade = require('jade'),
+    babel = require('babel'),
     stylus = require('stylus'),
     stylusAP = require('autoprefixer-stylus'),
-    nib = require('nib'),
-    babel = require('babel');
+    nib = require('nib');
+
+let rdp = require('readdirp');
+let es = require('event-stream');
 
 let render = {
     version:'0.0.6',
@@ -21,26 +25,16 @@ let render = {
         else this.log('rendering abort, toRender.json is empty');
     },
     inspect: function (userPath, watchFiles) {
-        userPath = userPath || __dirname;
-        this.log(`render dir root is ${userPath}`);
-
-        if (watchFiles) {
-            this.renderJSON(userPath);
-        }
-        fs.readdir(userPath || __dirname, (err, files)=> {
-            let isFolder = (files, prevDir, folder) => {
-                files.forEach(function (file) {
-                    let dir = path.join(prevDir, file);
-                    if (fs.statSync(dir).isDirectory()) {
-                        if (!folder.hasOwnProperty(file)) folder[file] = {};
-                        isFolder(fs.readdirSync(dir), dir, folder[file]);
-                    } else
-                        folder[file] = dir;
-                });
-            };
-            isFolder(files, userPath || __dirname, this.dirTree);
+        let stream = rdp({
+          root: path.join(userPath || __dirname),
+          directoryFilter: ['!node_modules', '!.git', '!.idea']
         });
-        this.log(`directory tree ${userPath}/* created`);
+
+        stream
+          .on('warn', err => this.log('non-fatal error', err))
+          .on('error', err => this.log('fatal error', err))
+          .on('data', data => console.log(data.parentDir, data.name))
+          //.pipe(es.stringify())
     },
     watch: function (engine, file, render) {
         engine.call(this, file, render);
