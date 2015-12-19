@@ -1,6 +1,6 @@
 'use strict';
 
-let fs = require('fs'),
+let fs = require('fs');
 let path = require('path');
 
 let jade = require('jade');
@@ -12,8 +12,10 @@ let nib = require('nib');
 let rdp = require('readdirp');
 let es = require('event-stream');
 
+let pkg = require('./package');
+
 let render = {
-  version:'0.0.6',
+  version: pkg.version,
   logs: true,
   logsDirectory: path.join(__dirname, 'main.log'),
   socket: null, watcher: false, dirTree: {},
