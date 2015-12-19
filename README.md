@@ -1,7 +1,7 @@
 # Front-render
 front end assets compiler
 
-## Instalation
+## Installation
 
 ```sh
 $ git clone https://github.com/rascada/front-render
