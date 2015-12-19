@@ -3,14 +3,12 @@
 let fs = require('fs');
 let Path = require('path');
 
-let jade = require('jade');
-let babel = require('babel');
-let stylus = require('stylus');
-let stylusAP = require('autoprefixer-stylus');
-let nib = require('nib');
-
 let pkg = require('./package');
 let DirectoryTree = require('./classes/DirectoryTree');
+
+let jade = require('./engines/jade');
+let stylus = require('./engines/stylus');
+let babel = require('./engines/babel');
 
 let render = {
   version: pkg.version,
@@ -18,6 +16,11 @@ let render = {
   logsDirectory: Path.join(__dirname, 'main.log'),
   socket: null, watcher: false, dirTree: {},
   directoryTree: new DirectoryTree(),
+
+  // engines
+  jade,
+  stylus,
+  babel,
 
   toRender: function(toRenderFiles) {
     if (toRenderFiles[0])
@@ -63,68 +66,6 @@ let render = {
       } else {
         console.log('filename not provided');
       }
-    });
-  },
-
-  jade: function(jadeFile, html, done) {
-
-    if (!done) done = function() {};
-
-    try {
-      fs.writeFile(html, jade.renderFile(jadeFile), (err) => {
-        if (err) done(this.log(err));
-        done(null, this.log(`${html} rendered with 'jade'`));
-      });
-    } catch (err) {
-      done(err);
-    }
-  },
-
-  stylus: function(styl, css, done) {
-
-    if (!done) done = function() {};
-
-    fs.readFile(styl, (err, file) => {
-      if (err) done(this.log(err));
-
-      let $$path = Path.join(process.cwd(), styl).split(Path.sep);
-      $$path.pop();
-      $$path = `"` + $$path.join(Path.sep) + Path.sep;
-
-      file = file.toString().replace(/@import\s+"/gi, `@import ${$$path}`);
-
-      stylus(file)
-        .use(nib()).use(stylusAP())
-        .render((err, cssFile) => {
-          if (err) {
-            done(render.log(err));
-            return false;
-          }
-
-          fs.writeFile(css, cssFile, () =>
-            done(null, this.log(`${css} rendered with 'stylus', 'nib', 'auto-prefixer'`)));
-        });
-    });
-  },
-
-  babel: function(es6, js, done) {
-    babel.transformFile(es6, (err, babel) => {
-
-      if (!done) done = function() {};
-
-      if (err) {
-        done(this.log(err));
-        return false;
-      }
-
-      fs.writeFile(js, babel.code, {
-        comments: false,
-        compact: true,
-        stage: 0,
-      }, (err) => {
-        if (err) done(this.log(err));
-        done(null, this.log(`${js} rendered with 'babel'`));
-      });
     });
   },
 
