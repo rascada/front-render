@@ -5,12 +5,11 @@ let rdp = require('readdirp');
 let es = require('event-stream');
 
 module.exports = class DirectoryTree{
-  constructor(userPath) {
+  constructor() {
     this.tree = {};
-    this.readDir(userPath);
   }
 
-  readDir(userPath) {
+  create(userPath) {
     let stream = rdp({
       root: Path.join(userPath || __dirname),
       directoryFilter: ['!node_modules', '!.git', '!.idea'],
@@ -20,10 +19,10 @@ module.exports = class DirectoryTree{
       .on('warn', err => render.log('non-fatal error', err))
       .on('error', err => render.log('fatal error', err))
       .on('end', _=> console.log(this.tree))
-      .on('data', data => this.createObject(data));
+      .on('data', data => this.createDir(data));
   }
 
-  createObject(data) {
+  createDir(data) {
     if (!data.parentDir) this.tree[data.name] = data;
     else {
       let path = data.parentDir.split(Path.sep);
