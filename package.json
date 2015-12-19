@@ -1,13 +1,14 @@
 {
   "name": "front-render",
   "version": "0.0.7",
-  "description": "",
+  "description": "front end assets compiler",
   "main": "index",
   "bin": {
     "front-render": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "npm i && npm link"
   },
   "repository": {
     "type": "git",

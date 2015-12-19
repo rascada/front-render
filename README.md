@@ -1,8 +1,13 @@
 # Front-render
+front end assets compiler
 
 ## Instalation
 
 ```sh
+$ git clone https://github.com/rascada/front-render
+$ cd front-render
+~/front-render$ npm run init
+# or
 $ npm i -g front-render
 ```
 
@@ -16,9 +21,9 @@ $ npm i -g front-render
 
 ```sh
 # front-render [engine] [input] [output]
-~ front-render babel views/main.js public/main.js
-~ [10/12/2015, 2:09:03 AM] [front-render] public/main.js rendered with 'babel'
-~ front-render stylus main.styl main.css 
+$ front-render babel views/main.js public/main.js
+$ [10/12/2015, 2:09:03 AM] [front-render] public/main.js rendered with 'babel'
+$ front-render stylus main.styl main.css
 _
 ```
 
@@ -38,12 +43,12 @@ _
 
 ```sh
 # one compilation files listen in toRenderFiles.json
-~ front-render
-~ [10/12/2015, 2:04:20 AM] [front-render] looking for toRender.json in working directory
+$ front-render
+$ [10/12/2015, 2:04:20 AM] [front-render] looking for toRender.json in working directory
 ```
 ```sh
 # compilation and watching files from toRenderFiles.json
-~ front-render watch
+$ front-render watch
 _
 ```
 
@@ -51,5 +56,5 @@ _
 
 ```sh
 # gui_alpha + watch toRenderFiles.json
-~ front-render gui 
+$ front-render gui
 ```
