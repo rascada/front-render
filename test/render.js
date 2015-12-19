@@ -49,7 +49,7 @@ tape('babel compilation engine', test => {
       fs.readFile('test.js', function(err, file) {
         if (err) test.fail(err);
 
-        test.equal(file.toString(), '"use strict";\n\nvar b = function b(_b) {\n        return _b <= 5;\n};', log.message);
+        test.equal(file.toString(), '"use strict";\n\nvar b = function b(_b) {\n      return _b <= 5;\n};', log.message);
         ['js', 'es6.js'].forEach(unlink);
       });
     });
@@ -74,5 +74,14 @@ tape('jade compilation engine', test => {
         ['jade', 'html'].forEach(unlink);
       });
     });
+  });
+});
+
+tape(`jade when file don't exist`, test => {
+  test.plan(1);
+
+  fRender.jade('err.jade', 'err.html', function(err, log) {
+    if (err) test.pass(err);
+    else test.fail(log);
   });
 });
