@@ -14,7 +14,7 @@ let render = {
   version: pkg.version,
   logs: true,
   logsDirectory: Path.join(__dirname, 'main.log'),
-  socket: null, watcher: false, dirTree: {},
+  watcher: false,
   directoryTree: new DirectoryTree(),
 
   // engines

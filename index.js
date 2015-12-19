@@ -3,7 +3,6 @@
 'use strict';
 
 let render = require('./render.js');
-let fs = require('fs');
 
 if (process.argv[4]) { //when 3 arguments render one file - front-render stylus views/main.styl public/main.css
   render[process.argv[2]](process.argv[3], process.argv[4]);
