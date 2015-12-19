@@ -51,10 +51,3 @@ $ [10/12/2015, 2:04:20 AM] [front-render] looking for toRender.json in working d
 $ front-render watch
 _
 ```
-
-## up-render alpha
-
-```sh
-# gui_alpha + watch toRenderFiles.json
-$ front-render gui
-```
