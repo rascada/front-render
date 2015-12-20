@@ -21,22 +21,22 @@ $ npm i -g front-render
 $ front-render
 ```
 
-
-## Available engines:
-- [babel](https://babeljs.io/)
-- [stylus](https://learnboost.github.io/stylus/)
-- [jade](http://jade-lang.com/)
-
 ## rendering single file
 
 ```sh
 # front-render [engine] [input] [output]
 $ front-render babel views/main.js public/main.js
+_
 $ [10/12/2015, 2:09:03 AM] [front-render] public/main.js rendered with 'babel'
+
 $ front-render stylus main.styl main.css
 _
 ```
 
+## Available engines:
+- [babel](https://babeljs.io/)
+- [stylus](https://learnboost.github.io/stylus/)
+- [jade](http://jade-lang.com/)
 
 ## toRender.json
 
