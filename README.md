@@ -4,15 +4,15 @@ front end assets compiler
 ## Installation
 
 ```sh
-$ git clone https://github.com/rascada/front-render
-$ cd front-render
-~/front-render$ npm run init
+$ npm i -g front-render
 ```
 ```sh
 # or
 ```
 ```sh
-$ npm i -g front-render
+$ git clone https://github.com/rascada/front-render
+$ cd front-render
+~/front-render$ npm run init
 ```
 
 ```sh
