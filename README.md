@@ -7,8 +7,18 @@ front end assets compiler
 $ git clone https://github.com/rascada/front-render
 $ cd front-render
 ~/front-render$ npm run init
+```
+```sh
 # or
+```
+```sh
 $ npm i -g front-render
+```
+
+```sh
+# no matter which one you choose
+# from now you have command
+$ front-render
 ```
 
 
