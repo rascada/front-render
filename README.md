@@ -27,7 +27,7 @@ $ front-render
 # front-render [engine] [input] [output]
 $ front-render babel views/main.js public/main.js
 _
-$ [10/12/2015, 2:09:03 AM] [front-render] public/main.js rendered with 'babel'
+$ | 10/12/2015, 2:09:03 AM |front-render| public/main.js rendered with 'babel'
 
 $ front-render stylus main.styl main.css
 _
@@ -44,14 +44,14 @@ _
 
 ```json
 [
-    [ "stylus", "views/main.styl", "public/main.css" ],
-	[ "babel", "views/main.js", "public/main.js" ],
+  [ "stylus", "views/main.styl", "public/main.css" ],
+  [ "babel", "views/main.js", "public/main.js" ],
 ]
 ```
 ```sh
 # when toRender is not provided
 $ front-render
-$ [12/21/2015, 3:05:30 AM] [front-render] toRender.json created
+$ | 12/21/2015, 3:05:30 AM |front-render| toRender.json created
 # will create toRender with empty array
 ```
 
@@ -60,7 +60,7 @@ $ [12/21/2015, 3:05:30 AM] [front-render] toRender.json created
 ```sh
 # compile files listed in toRender.json
 $ front-render
-$ [10/12/2015, 2:04:20 AM] [front-render] looking for toRender.json in working directory
+$ | 10/12/2015, 2:04:20 AM |front-render| looking for toRender.json in working directory
 ```
 ```sh
 # watch and recompile on change

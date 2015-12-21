@@ -59,12 +59,12 @@ let render = {
   },
 
   log: function(message, consoleOnly) {
-    let log = `[${new Date().toLocaleString()}] [front-render] ${message}`;
+    let log = `| ${new Date().toLocaleString()} |front-render| ${message}`;
 
     if (this.logs) {
       console.log(log);
-      if (this.socket) this.socket.emit('log', {log: log});
-      if (!consoleOnly && this.logsDirectory) fs.appendFile(this.logsDirectory, `${log}\n`);
+      if (!consoleOnly && this.logsDirectory)
+        fs.appendFile(this.logsDirectory, `${log}\n`);
     }
 
     return {
