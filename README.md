@@ -36,6 +36,7 @@ _
 ## Available engines:
 - [babel](https://babeljs.io/)
 - [stylus](https://learnboost.github.io/stylus/)
+  - stylus use [nib](https://github.com/tj/nib) and [autoprefixer](https://github.com/postcss/autoprefixer)
 - [jade](http://jade-lang.com/)
 
 ## toRender.json
