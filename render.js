@@ -12,9 +12,8 @@ let babel = require('./engines/babel');
 
 let render = {
   version: pkg.version,
-  logs: true,
+  logs: true, watcher: false,
   logsDirectory: Path.join(__dirname, 'main.log'),
-  watcher: false,
   directoryTree: new DirectoryTree(),
 
   // engines
@@ -24,7 +23,7 @@ let render = {
 
   toRender: function(toRenderFiles) {
     if (toRenderFiles[0])
-      toRenderFiles.forEach((file)=> {
+      toRenderFiles.forEach(file => {
         this.watch(this[file[0]], file[1], file[2]);
       });
     else this.log('rendering abort, toRender.json is empty');
@@ -32,7 +31,7 @@ let render = {
 
   watch: function(engine, file, render) {
     engine.call(this, file, render);
-    if (this.watcher) fs.watchFile(file, () => engine.call(this, file, render));
+    if (this.watcher) fs.watchFile(file, _ => engine.call(this, file, render));
   },
 
   renderJSON: function(userPath) {
@@ -53,7 +52,7 @@ let render = {
       render.log('toRender.json not found');
       fs.writeFile(`${toRender}.json`, JSON.stringify([]), function() {
         render.log(`toRender.json created`);
-        render.toRender(require(toRender));
+        render.toRender([]);
       });
     }
   },
