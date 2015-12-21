@@ -58,17 +58,6 @@ let render = {
     }
   },
 
-  watchFolder: function(dir) {
-    fs.watch(dir, function(event, filename) {
-      console.log('event is: ' + event);
-      if (filename) {
-        console.log('filename provided: ' + filename);
-      } else {
-        console.log('filename not provided');
-      }
-    });
-  },
-
   log: function(message, consoleOnly) {
     let log = `[${new Date().toLocaleString()}] [front-render] ${message}`;
 
