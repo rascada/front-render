@@ -39,7 +39,7 @@ let render = {
     if (userPath) this.watcher = true;
     else userPath = process.cwd();
 
-    this.watcher ? this.log(`watching ${userPath}/*`) : this.log(`just one rendering ${userPath}/*`);
+    this.log(`${this.watcher ? 'watching' : 'render once '}${userPath}${Path.sep}*`);
 
     this.log('looking for toRender.json in working directory');
 
