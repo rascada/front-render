@@ -1,6 +1,6 @@
 {
   "name": "front-render",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "front end assets compiler",
   "main": "index",
   "bin": {
